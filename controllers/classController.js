@@ -47,8 +47,9 @@ exports.getChildByClassId = (req, res) => {
 
 // ---- Post Methods ---- //
 exports.addNewClass = (req, res) => {
+  const { id: _id, name, supervisor, children } = req.body;
   //create object from child schemaa
-  const object = new Class(req.body);
+  const object = new Class({ _id, name, supervisor, children });
   //{
   // nafs el properties ele ana katbaha fl schema be nafs el dataTypes
   // _id: 10,
@@ -67,7 +68,7 @@ exports.addNewClass = (req, res) => {
 
 // ---- Update Methods ---- //
 exports.updateClass = (req, res) => {
-  Class.updateOne({ _id: req.params.id }, req.body) // Use req.body for the update operation
+  Class.updateOne({ _id: req.body.id }, req.body) // Use req.body for the update operation
     .then((result) => {
       if (result.nModified === 0) throw new Error("id doesn't exist"); // Check if any document was modified
       res.status(200).json({ message: "class updated successfully" });
@@ -82,7 +83,7 @@ exports.updateClass = (req, res) => {
 
 // ---- Delete Methods ---- //
 exports.deleteClass = (req, res) => {
-  Class.deleteOne({ _id: req.params.id }) // Use req.params.id to specify which document to delete
+  Class.deleteOne({ _id: req.body.id }) // Use req.params.id to specify which document to delete
     .then((result) => {
       if (result.deletedCount === 0) throw new Error("id doesn't exist"); // Check if any document was deleted
       res.status(200).json({ message: "class deleted successfully" });

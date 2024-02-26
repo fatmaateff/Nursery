@@ -8,7 +8,6 @@ exports.insertArray = [
     .isLength({ max: 10 })
     .withMessage("teacher name length must be less than 10"),
   body("password")
-    .optional()
     .isString()
     .isLength({ min: 6 })
     .withMessage("password must be at least 6 charachter"),

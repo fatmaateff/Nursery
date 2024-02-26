@@ -6,6 +6,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const swagger = require("./swagger");
 
 // ------ End Loading Modules ------ //
 
@@ -37,7 +38,7 @@ mongoose
   .catch((error) => {
     console.log("error connecting to the database", error);
   });
-
+swagger(server, process.env.PORT);
 // ----- End Listening to the server ----- //
 
 // ----- Middlewares ----- //
@@ -57,7 +58,7 @@ server.use(cors());
 server.use(express.json());
 // Form Data Handling
 server.use(express.urlencoded({ extended: true }));
-server.use(upload.single("images"));
+server.use(upload.single("image"));
 
 // End Body Parser
 

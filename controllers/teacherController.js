@@ -16,13 +16,17 @@ exports.getAllTeachers = (req, res) => {
 
 // ------ Post Methods -------//
 exports.addNewTeacher = async (req, res, next) => {
+  console.log("image :>> ", req.file);
   const imagePath = req.file.path;
   //to encrypt the pw///
   try {
-    const { password, ...rest } = req.body;
+    const { password, id, ...rest } = req.body;
+    console.log("password :>> ", password);
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("hashedPassword :>> ", hashedPassword);
     const newTeacher = new Teacher({
       ...rest,
+      _id: id,
       password: hashedPassword,
       image: imagePath,
     });
@@ -58,7 +62,7 @@ exports.updateTeacher = async (req, res) => {
 
 // ------ Delete Methods -------//
 exports.deleteSpecifiedTeacher = (req, res) => {
-  Teacher.deleteOne({ _id: req.params.id }) // Use req.params.id to specify which document to delete
+  Teacher.deleteOne({ _id: req.body.id }) // Use req.params.id to specify which document to delete
     .then((result) => {
       const imagePath = Teacher.image;
       // delete image from the server
@@ -79,7 +83,7 @@ exports.deleteSpecifiedTeacher = (req, res) => {
 // ------ End of Delete Methods -------//
 
 exports.getTeacherById = (req, res) => {
-  Teacher.findOne({ _id: req.params.id }) // ba2olo 3yza el id ele gay mn req.param
+  Teacher.findOne({ _id: req.body.id }) // ba2olo 3yza el id ele gay mn req.param
     .then((Teacher) => {
       if (!Teacher) throw new Error("id doesn't exist");
       //law el data bt3tk be null

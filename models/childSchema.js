@@ -13,10 +13,9 @@ const addressSchema = new mongoose.Schema(
 const Schema = mongoose.Schema({
   _id: Number,
   name: String,
-  agr: Number,
+  age: Number,
   password: String,
   department: { type: Number, ref: "department" },
-  image: String,
   //class msh department //ref de property gwa mongo bt5lene a2dr a-refrence w hwa byroh ll _id lwhdo
   address: addressSchema,
   level: {

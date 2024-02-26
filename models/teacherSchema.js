@@ -6,6 +6,7 @@ const Schema = new mongoose.Schema({
   email: String,
   password: String,
   class: Number,
+  image: String,
 });
 
 //2-mapping the schema to department (ba2olha hasgl 3ndk model)
